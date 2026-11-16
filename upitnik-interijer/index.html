@@ -183,6 +183,28 @@ const SECTIONS = [
 "Nemam ništa"
 ],
 "h": "Ako imate, pošaljite ih mailom nakon upitnika."
+},
+{
+"k": "strop",
+"l": "Visina stropa",
+"t": "one",
+"o": [
+"Uobičajena (oko 2,60 m)",
+"Visoka (više od 2,80 m)",
+"Različita po prostorijama",
+"Ne znam"
+]
+},
+{
+"k": "spusteni",
+"l": "Spušteni strop",
+"t": "one",
+"o": [
+"Da, s ugradnom rasvjetom",
+"Samo mjestimično",
+"Ne",
+"Predložite vi"
+]
 }
 ]
 },
@@ -293,6 +315,37 @@ const SECTIONS = [
 }
 },
 {
+"k": "ljubimci",
+"l": "Na što trebamo paziti?",
+"t": "many",
+"o": [
+"Kućni ljubimci",
+"Mala djeca",
+"Starija osoba ili otežano kretanje",
+"Ništa od toga"
+],
+"h": "Zbog izbora materijala i sigurnosti.",
+"if": {
+"k": "vrsta",
+"in": [
+"Stan",
+"Kuća",
+"Apartman za najam"
+]
+}
+},
+{
+"k": "spremanje",
+"l": "Koliko Vam treba prostora za spremanje?",
+"t": "one",
+"o": [
+"Puno: ormari do stropa, garderoba",
+"Umjereno",
+"Malo",
+"Predložite vi"
+]
+},
+{
 "k": "posao",
 "l": "Kako radi Vaš posao?",
 "t": "area",
@@ -334,6 +387,18 @@ const SECTIONS = [
 "Svijetlo i prozračno",
 "Toplo i zemljano",
 "Tamno i bogato",
+"Predložite vi"
+]
+},
+{
+"k": "podovi",
+"l": "Pod",
+"t": "one",
+"o": [
+"Parket svuda",
+"Parket u sobama, keramika u kuhinji i kupaonici",
+"Keramika svuda",
+"Mikrocement",
 "Predložite vi"
 ]
 },
@@ -445,6 +510,60 @@ const SECTIONS = [
 "Uglavnom postojeći"
 ]
 }
+},
+{
+"k": "komadi",
+"l": "Komadi koji moraju ostati ili biti vidljivi",
+"t": "area",
+"h": "Slike, umjetnine, naslijeđeni namještaj, kolekcije…"
+},
+{
+"k": "tehnika",
+"l": "Kućanski aparati",
+"t": "one",
+"o": [
+"Ugradni",
+"Samostojeći",
+"Kombinirano",
+"Predložite vi"
+]
+},
+{
+"k": "brand",
+"l": "Željeni proizvođač aparata",
+"t": "txt",
+"h": "Npr. Gorenje, Bosch, Miele. Može i „svejedno“."
+},
+{
+"k": "tv",
+"l": "Gdje želite TV?",
+"t": "many",
+"o": [
+"Dnevni boravak",
+"Spavaća soba",
+"Dječja soba",
+"Nigdje"
+],
+"if": {
+"k": "vrsta",
+"in": [
+"Stan",
+"Kuća",
+"Apartman za najam"
+]
+}
+},
+{
+"k": "klima",
+"l": "Klima uređaji",
+"t": "one",
+"o": [
+"Već postoje",
+"Trebaju novi",
+"Ne trebaju",
+"Predložite vi"
+],
+"h": "Ako trebaju novi, u napomeni napišite u kojim prostorijama."
 },
 {
 "k": "podno",

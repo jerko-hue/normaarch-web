@@ -183,6 +183,28 @@ const SECTIONS = [
 "Nothing"
 ],
 "h": "If you have them, email them after the questionnaire."
+},
+{
+"k": "strop",
+"l": "Ceiling height",
+"t": "one",
+"o": [
+"Standard (about 2.60 m)",
+"High (over 2.80 m)",
+"Varies by room",
+"Not sure"
+]
+},
+{
+"k": "spusteni",
+"l": "Dropped ceiling",
+"t": "one",
+"o": [
+"Yes, with recessed lighting",
+"Only in places",
+"No",
+"Your suggestion"
+]
 }
 ]
 },
@@ -293,6 +315,37 @@ const SECTIONS = [
 }
 },
 {
+"k": "ljubimci",
+"l": "What should we keep in mind?",
+"t": "many",
+"o": [
+"Pets",
+"Small children",
+"Elderly person or limited mobility",
+"None of these"
+],
+"h": "It affects materials and safety.",
+"if": {
+"k": "vrsta",
+"in": [
+"Apartment",
+"House",
+"Holiday rental"
+]
+}
+},
+{
+"k": "spremanje",
+"l": "How much storage do you need?",
+"t": "one",
+"o": [
+"A lot: full-height wardrobes, walk-in",
+"Moderate",
+"Little",
+"Your suggestion"
+]
+},
+{
 "k": "posao",
 "l": "How does your business work?",
 "t": "area",
@@ -334,6 +387,18 @@ const SECTIONS = [
 "Light and airy",
 "Warm and earthy",
 "Dark and rich",
+"Your suggestion"
+]
+},
+{
+"k": "podovi",
+"l": "Flooring",
+"t": "one",
+"o": [
+"Wood everywhere",
+"Wood in rooms, tiles in kitchen and bathroom",
+"Tiles everywhere",
+"Microcement",
 "Your suggestion"
 ]
 },
@@ -445,6 +510,60 @@ const SECTIONS = [
 "Mostly existing"
 ]
 }
+},
+{
+"k": "komadi",
+"l": "Pieces that must stay or be on display",
+"t": "area",
+"h": "Paintings, art, heirloom furniture, collections…"
+},
+{
+"k": "tehnika",
+"l": "Kitchen appliances",
+"t": "one",
+"o": [
+"Built-in",
+"Freestanding",
+"Mixed",
+"Your suggestion"
+]
+},
+{
+"k": "brand",
+"l": "Preferred appliance brand",
+"t": "txt",
+"h": "E.g. Gorenje, Bosch, Miele. “No preference” is fine."
+},
+{
+"k": "tv",
+"l": "Where do you want a TV?",
+"t": "many",
+"o": [
+"Living room",
+"Bedroom",
+"Children's room",
+"Nowhere"
+],
+"if": {
+"k": "vrsta",
+"in": [
+"Apartment",
+"House",
+"Holiday rental"
+]
+}
+},
+{
+"k": "klima",
+"l": "Air conditioning",
+"t": "one",
+"o": [
+"Already installed",
+"New ones needed",
+"Not needed",
+"Your suggestion"
+],
+"h": "If new ones are needed, note which rooms."
 },
 {
 "k": "podno",

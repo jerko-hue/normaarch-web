@@ -1,0 +1,688 @@
+<!doctype html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Upitnik za kuću ili zgradu – Norma Studio</title>
+<meta name="description" content="Idejni i glavni projekt">
+<meta name="robots" content="noindex">
+<link rel="icon" href="/znak.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..700&display=swap" rel="stylesheet">
+<style>
+:root{--papir:#f4f4f1;--bijelo:#fff;--tinta:#14151c;--luk:#877c6a;--luk-svj:#efece6;--crta:#c9c5bc;--siva:#5c5d62;--err:#a8322a;
+  --font:"Archivo",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color-scheme:light}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--papir);color:var(--tinta);font:400 16px/1.55 var(--font);-webkit-text-size-adjust:100%}
+.wrap{max-width:820px;margin:0 auto;padding:0 18px}
+:focus-visible{outline:2px solid var(--luk);outline-offset:2px}
+header{background:var(--tinta);color:var(--papir);position:sticky;top:0;z-index:20}
+.hd{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0}
+.marka{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit}
+.marka svg{width:28px;height:28px;color:var(--luk)}
+.marka span{font-weight:700;font-stretch:118%;letter-spacing:.06em;font-size:15px}
+.marka b{font-weight:300}
+.desno{display:flex;gap:16px;align-items:center;font-size:13px;color:#b9b8b3}
+.desno a{color:inherit}
+.bar{height:3px;background:#33343c}.bar>i{display:block;height:100%;background:var(--luk);width:0;transition:width .3s}
+main{padding:28px 0 110px}
+h1,h2{font-weight:500;font-stretch:112%;letter-spacing:-.01em;margin:0}
+h1{font-size:clamp(30px,5vw,44px);line-height:1.05;margin-bottom:10px}
+h2{font-size:24px;line-height:1.15;margin-bottom:6px}
+.sub{color:var(--siva);margin:0 0 22px}
+.card{background:var(--bijelo);border:1px solid var(--crta);padding:24px;margin-bottom:14px}
+.note{border-left:3px solid var(--luk);background:var(--luk-svj);padding:12px 14px;font-size:15px;margin:0 0 18px}
+.hidden{display:none!important}
+.f{margin-bottom:22px}.f:last-child{margin-bottom:0}
+label.q{display:block;font-weight:500;margin-bottom:2px;font-size:16px}
+.hint{display:block;color:var(--siva);font-size:13.5px;margin-bottom:8px}
+.req{color:var(--err);margin-left:2px}
+input[type=text],input[type=tel],input[type=email],textarea{width:100%;padding:10px 12px;font:16px var(--font);color:var(--tinta);background:var(--bijelo);border:1px solid var(--crta);border-radius:0;outline:none}
+textarea{min-height:92px;resize:vertical}
+input:focus,textarea:focus{border-color:var(--tinta)}
+.bad input,.bad textarea,.bad .opt{border-color:var(--err)}
+.emsg{color:var(--err);font-size:13px;margin-top:5px;display:none}.bad .emsg{display:block}
+.opts{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.opt{display:flex;align-items:center;gap:8px;padding:9px 13px;border:1px solid var(--crta);cursor:pointer;background:var(--bijelo);font-size:15px}
+.opt:hover{border-color:var(--tinta)}
+.opt input{margin:0;accent-color:var(--tinta)}
+.opt.on{border-color:var(--tinta);background:var(--tinta);color:var(--papir)}
+.opt.on input{accent-color:var(--luk)}
+.nav{position:fixed;left:0;right:0;bottom:0;background:var(--bijelo);border-top:1px solid var(--crta);padding:11px 0;z-index:20}
+.navin{display:flex;gap:10px;align-items:center;justify-content:space-between}
+button{font:500 15px var(--font);padding:12px 22px;cursor:pointer;border:1px solid transparent;border-radius:0}
+.pri{background:var(--tinta);color:var(--papir)}.pri:hover{background:#2b2d36}.pri:disabled{opacity:.5;cursor:default}
+.sec{background:var(--bijelo);color:var(--tinta);border-color:var(--crta)}.sec:hover{border-color:var(--tinta)}
+.saved{font-size:12px;color:var(--siva)}
+.rv h3{font-size:15px;font-weight:600;margin:22px 0 8px;padding-bottom:5px;border-bottom:1px solid var(--tinta)}
+.rv h3:first-child{margin-top:0}
+.rvi{display:grid;grid-template-columns:1fr 1.2fr;gap:10px;padding:7px 0;border-bottom:1px solid #e6e3dc;font-size:14.5px}
+.rvi b{font-weight:500;color:var(--siva)}.rvi span{white-space:pre-wrap;word-break:break-word}.rvi .no{color:#a3a29d}
+.chk{display:flex;gap:10px;align-items:flex-start;background:var(--papir);border:1px solid var(--crta);padding:13px;margin-top:16px;font-size:14.5px}
+.chk input{margin:3px 0 0;accent-color:var(--tinta)}
+.err{border-left-color:var(--err);background:#fbefee;color:var(--err)}
+.redak{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+footer{padding:18px 0 26px;color:var(--siva);font-size:13px}
+@media(max-width:560px){.rvi{grid-template-columns:1fr;gap:2px}.card{padding:18px}.desno .korak{display:none}}
+</style>
+</head>
+<body>
+<header>
+ <div class="wrap hd">
+  <a class="marka" href="/"><svg viewBox="0 0 100 100" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="9"><path d="M14 100V50a36 36 0 0 1 72 0v50"/><path d="M31 100V52a19 19 0 0 1 38 0v38"/></g><path d="M45.5 100V61a4.5 4.5 0 0 1 9 0v39z" fill="currentColor"/></svg><span>NORMA <b>STUDIO</b></span></a>
+  <div class="desno"><span class="korak" id="stepno"></span><a href="/en/upitnik-projekt/" hreflang="en">English</a></div>
+ </div>
+ <div class="bar"><i id="prog"></i></div>
+</header>
+<main class="wrap"><div id="view"></div></main>
+<div class="nav hidden" id="nav"><div class="wrap navin">
+ <button class="sec" id="back"></button><span class="saved" id="saved" aria-live="polite"></span><button class="pri" id="next"></button>
+</div></div>
+<footer class="wrap">Norma Studio d.o.o., Kralja Petra Krešimira IV, Lamela 5, Mostar, +387 63 360 903</footer>
+<script>
+/* Norma Studio – upitnik (motor zajednički za sve upitnike; pitanja generira alati/upitnik.py) */
+const ACCESS_KEY = "ea00d9db-1da0-4b4d-9f1c-f055ccf46ee9";
+const SEND_TO = "jerko@normaarch.com";
+const KEY = "norma_upitnik_projekt_v1_hr";
+const U = {"step": "Korak %1 od %2", "saved": "Sačuvano na ovom uređaju", "next": "Dalje", "back": "Nazad", "review": "Pregled odgovora", "start": "Počnite", "cont": "Nastavite gdje ste stali", "reset": "Počnite iznova", "reset2": "Obrisati sve upisano? Kliknite još jednom", "required": "Ovo polje je potrebno.", "answered": "Odgovoreno %1 od %2 pitanja. Provjerite i pošaljite.", "consent": "Potvrđujem da su podaci točni. Ako se nešto promijeni, javit ću pisanim putem.", "needconsent": "Potvrdite kvačicu ispod pregleda pa pošaljite.", "send": "Pošaljite upitnik", "sending": "Šaljem…", "dl": "Preuzmite kopiju", "backq": "Nazad na pitanja", "when": "Popunjeno:", "file": "Upitnik", "failed": "Slanje nije uspjelo. Kliknite „Preuzmite kopiju“ i pošaljite datoteku na %1 ili nas nazovite.", "sent": "Upitnik je poslan", "sent2": "Hvala. Pregledat ćemo odgovore i javiti se s ponudom.", "sent3": "Ako imate papire, nacrte, fotografije ili slike koje Vam se sviđaju, pošaljite ih na %1.", "intro1": "Na temelju Vaših odgovora pripremamo ponudu s cijenom i rokovima. Ništa Vas ne obvezuje.", "intro2": "Treba Vam 10-ak minuta. Većina pitanja je na klik. Gdje niste sigurni, preskočite ili odaberite „Predložite vi“. Odgovori se sami čuvaju na ovom uređaju, pa možete stati i nastaviti kasnije."};
+const SECTIONS = [
+{
+"t": "Vaši podaci",
+"d": "Da znamo kome šaljemo ponudu.",
+"f": [
+{
+"k": "ime",
+"l": "Ime i prezime",
+"t": "txt",
+"req": 1
+},
+{
+"k": "tel",
+"l": "Telefon",
+"t": "tel",
+"req": 1
+},
+{
+"k": "mail",
+"l": "E-mail",
+"t": "mail",
+"req": 1
+},
+{
+"k": "komun",
+"l": "Kako se najlakše čujemo?",
+"t": "many",
+"o": [
+"Telefon",
+"Viber / WhatsApp",
+"E-mail",
+"Uživo"
+]
+}
+]
+},
+{
+"t": "Što gradite",
+"d": "",
+"f": [
+{
+"k": "vrsta",
+"l": "Vrsta građevine",
+"t": "one",
+"o": [
+"Obiteljska kuća",
+"Kuća za odmor",
+"Stambena zgrada",
+"Stambeno-poslovna zgrada",
+"Poslovni ili turistički objekt",
+"Dogradnja, nadogradnja ili rekonstrukcija",
+"Nešto drugo"
+],
+"req": 1
+},
+{
+"k": "usluga",
+"l": "Što Vam treba od nas?",
+"t": "many",
+"o": [
+"Idejni projekt",
+"Glavni projekt za građevinsku dozvolu",
+"Projekt interijera",
+"Vizualizacije i film",
+"Autorski nadzor",
+"Ne znam još, savjetujte me"
+]
+},
+{
+"k": "opis",
+"l": "Ukratko opišite što planirate",
+"t": "area",
+"h": "Dvije-tri rečenice su dovoljne."
+}
+]
+},
+{
+"t": "Lokacija i parcela",
+"d": "Što znate. Ostalo provjeravamo mi.",
+"f": [
+{
+"k": "mjesto",
+"l": "Općina i mjesto",
+"t": "txt",
+"req": 1
+},
+{
+"k": "cestica",
+"l": "Broj katastarske čestice",
+"t": "txt",
+"h": "Ako znate."
+},
+{
+"k": "parcela",
+"l": "Površina parcele (m²)",
+"t": "txt",
+"h": "Okvirno."
+},
+{
+"k": "teren",
+"l": "Teren",
+"t": "one",
+"o": [
+"Ravan",
+"Blagi nagib",
+"Strm",
+"Ne znam"
+]
+},
+{
+"k": "postoji",
+"l": "Što je sada na parceli?",
+"t": "one",
+"o": [
+"Prazna je",
+"Objekt koji ostaje",
+"Objekt koji se ruši",
+"Ne znam"
+]
+},
+{
+"k": "papiri",
+"l": "Što od papira već imate?",
+"t": "many",
+"o": [
+"Kopiju katastarskog plana",
+"Zemljišnoknjižni izvadak",
+"Geodetsku snimku",
+"Urbanističku suglasnost ili lokacijsku informaciju",
+"Ništa još"
+]
+},
+{
+"k": "vlasn",
+"l": "Vlasništvo nad parcelom",
+"t": "one",
+"o": [
+"Sve je na meni / nama",
+"Suvlasništvo",
+"Prijenos je u tijeku",
+"Nije riješeno"
+]
+}
+]
+},
+{
+"t": "Veličina i prostori",
+"d": "Odgovorite na ono što se odnosi na Vas.",
+"f": [
+{
+"k": "povrsina",
+"l": "Okvirna površina koju zamišljate (m²)",
+"t": "txt"
+},
+{
+"k": "etaze",
+"l": "Etaže",
+"t": "many",
+"o": [
+"Podrum",
+"Prizemlje",
+"Kat",
+"Dva kata ili više",
+"Potkrovlje",
+"Ravni krov s terasom",
+"Predložite vi"
+]
+},
+{
+"k": "ukucani",
+"l": "Tko će živjeti u kući?",
+"t": "txt",
+"h": "Npr. dvoje odraslih i troje djece.",
+"if": {
+"k": "vrsta",
+"in": [
+"Obiteljska kuća",
+"Kuća za odmor"
+]
+}
+},
+{
+"k": "sobe",
+"l": "Broj spavaćih soba",
+"t": "one",
+"o": [
+"1",
+"2",
+"3",
+"4",
+"5 ili više"
+],
+"if": {
+"k": "vrsta",
+"in": [
+"Obiteljska kuća",
+"Kuća za odmor"
+]
+}
+},
+{
+"k": "kupaonice",
+"l": "Broj kupaonica",
+"t": "one",
+"o": [
+"1",
+"2",
+"3",
+"4 ili više"
+],
+"if": {
+"k": "vrsta",
+"in": [
+"Obiteljska kuća",
+"Kuća za odmor"
+]
+}
+},
+{
+"k": "prostori",
+"l": "Što još želite?",
+"t": "many",
+"o": [
+"Garaža",
+"Radna soba",
+"Soba za goste",
+"Vešeraj",
+"Spremište",
+"Konoba",
+"Teretana",
+"Bazen",
+"Ljetna kuhinja",
+"Lift"
+],
+"if": {
+"k": "vrsta",
+"in": [
+"Obiteljska kuća",
+"Kuća za odmor"
+]
+}
+},
+{
+"k": "stanovi",
+"l": "Okvirni broj stanova ili jedinica",
+"t": "txt",
+"if": {
+"k": "vrsta",
+"in": [
+"Stambena zgrada",
+"Stambeno-poslovna zgrada",
+"Poslovni ili turistički objekt"
+]
+}
+},
+{
+"k": "lokali",
+"l": "Lokali u prizemlju?",
+"t": "one",
+"o": [
+"Da",
+"Ne",
+"Možda"
+],
+"if": {
+"k": "vrsta",
+"in": [
+"Stambena zgrada",
+"Stambeno-poslovna zgrada",
+"Poslovni ili turistički objekt"
+]
+}
+},
+{
+"k": "parking",
+"l": "Parkiranje",
+"t": "one",
+"o": [
+"Na otvorenom",
+"Garaža u podrumu",
+"Oboje",
+"Predložite vi"
+],
+"if": {
+"k": "vrsta",
+"in": [
+"Stambena zgrada",
+"Stambeno-poslovna zgrada",
+"Poslovni ili turistički objekt"
+]
+}
+},
+{
+"k": "namjena",
+"l": "Za koga su stanovi?",
+"t": "one",
+"o": [
+"Za prodaju",
+"Za najam",
+"Za obitelj",
+"Kombinirano"
+],
+"if": {
+"k": "vrsta",
+"in": [
+"Stambena zgrada",
+"Stambeno-poslovna zgrada",
+"Poslovni ili turistički objekt"
+]
+}
+}
+]
+},
+{
+"t": "Izgled",
+"d": "",
+"f": [
+{
+"k": "stil",
+"l": "Stil",
+"t": "one",
+"o": [
+"Suvremeno",
+"Klasično",
+"Mediteranski, s kamenom",
+"Predložite vi"
+]
+},
+{
+"k": "krov",
+"l": "Krov",
+"t": "one",
+"o": [
+"Ravni",
+"Kosi",
+"Predložite vi"
+]
+},
+{
+"k": "materijali",
+"l": "Materijali koji Vam se sviđaju",
+"t": "many",
+"o": [
+"Svijetla žbuka",
+"Kamen",
+"Drvo",
+"Beton",
+"Velike staklene stijene"
+]
+},
+{
+"k": "reference",
+"l": "Kuće ili zgrade koje Vam se sviđaju",
+"t": "area",
+"h": "Poveznice s Instagrama ili Pinteresta, ili opis."
+},
+{
+"k": "nesvida",
+"l": "Što Vam se ne sviđa?",
+"t": "area"
+}
+]
+},
+{
+"t": "Grijanje i energija",
+"d": "Grubo je dovoljno. Detalje dogovaramo poslije.",
+"f": [
+{
+"k": "grijanje",
+"l": "Grijanje",
+"t": "one",
+"o": [
+"Dizalica topline",
+"Plin",
+"Pelet ili drva",
+"Predložite vi"
+]
+},
+{
+"k": "hladenje",
+"l": "Hlađenje",
+"t": "one",
+"o": [
+"Klima uređaji",
+"Podno ili stropno",
+"Predložite vi"
+]
+},
+{
+"k": "solar",
+"l": "Solarni paneli",
+"t": "one",
+"o": [
+"Da",
+"Ne",
+"Možda"
+]
+},
+{
+"k": "pametna",
+"l": "Pametna kuća (upravljanje s mobitela)",
+"t": "one",
+"o": [
+"Da",
+"Ne",
+"Možda"
+]
+}
+]
+},
+{
+"t": "Budžet i rokovi",
+"d": "",
+"f": [
+{
+"k": "budzet",
+"l": "Okvirni budžet gradnje (KM)",
+"t": "txt",
+"h": "Pomaže nam predložiti rješenje koje se može izgraditi. Može i „ne znam“."
+},
+{
+"k": "rok",
+"l": "Kad Vam trebaju projekti?",
+"t": "one",
+"o": [
+"Što prije",
+"U sljedećih 6 mjeseci",
+"Ove ili iduće godine",
+"Nema žurbe"
+]
+},
+{
+"k": "gradnja",
+"l": "Kad biste htjeli početi graditi?",
+"t": "txt"
+},
+{
+"k": "izvodjac",
+"l": "Izvođač",
+"t": "one",
+"o": [
+"Imamo izvođača",
+"Tražimo",
+"Gradimo u vlastitoj režiji"
+]
+}
+]
+},
+{
+"t": "Za kraj",
+"d": "",
+"f": [
+{
+"k": "odakle",
+"l": "Kako ste čuli za nas?",
+"t": "one",
+"o": [
+"Preporuka",
+"Instagram",
+"Google",
+"Vidio/la sam neki naš projekt",
+"Drugo"
+]
+},
+{
+"k": "napomena",
+"l": "Još nešto što bismo trebali znati?",
+"t": "area"
+}
+]
+}
+];
+const NASLOV = "Upitnik za kuću ili zgradu", PODNASLOV = "Idejni i glavni projekt";
+
+let data = {}, step = -1;
+const $ = s => document.querySelector(s);
+const view = $('#view'), nav = $('#nav');
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function stored(){ try{ return localStorage.getItem(KEY); }catch(e){ return null; } }
+try{ data = JSON.parse(stored() || '{}') || {}; }catch(e){ data = {}; }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(data)); $('#saved').textContent = U.saved; setTimeout(() => { $('#saved').textContent = ''; }, 1800); }catch(e){} }
+function vis(f){ if(!f.if) return true; const v = data[f.if.k]; return Array.isArray(v) ? v.some(x => f.if.in.includes(x)) : f.if.in.includes(v); }
+function filled(k){ const v = data[k]; return Array.isArray(v) ? v.length > 0 : v != null && String(v).trim() !== ''; }
+function chrome(cur, tot){ $('#stepno').textContent = cur ? U.step.replace('%1', cur).replace('%2', tot) : ''; $('#prog').style.width = (cur / tot * 100) + '%'; }
+function render(){ window.scrollTo(0, 0); if(step === -1) return intro(); if(step === SECTIONS.length) return review(); if(step > SECTIONS.length) return done(); section(SECTIONS[step]); }
+
+function intro(){
+  chrome(0, SECTIONS.length + 1); nav.classList.add('hidden');
+  const any = !!stored();
+  view.innerHTML = `<div class="card"><h1>${esc(NASLOV)}</h1><p class="sub">${esc(PODNASLOV)}</p>
+    <p>${U.intro1}</p><div class="note" style="margin-top:16px">${U.intro2}</div>
+    <div class="redak"><button class="pri" id="go">${any ? U.cont : U.start}</button>${any ? `<button class="sec" id="reset">${U.reset}</button>` : ''}</div></div>`;
+  $('#go').onclick = () => { step = 0; render(); };
+  const r = $('#reset');
+  if(r) r.onclick = () => { if(!r.dataset.sure){ r.dataset.sure = 1; r.textContent = U.reset2; return; } data = {}; try{ localStorage.removeItem(KEY); }catch(e){} step = 0; render(); };
+}
+
+function field(f){
+  const v = data[f.k], id = 'f_' + f.k;
+  const multi = f.t === 'many', choice = f.t === 'one' || multi;
+  const lab = (choice ? `<span class="q" style="display:block;font-weight:500;margin-bottom:2px" id="${id}">` : `<label class="q" for="${id}">`) + esc(f.l) + (f.req ? '<span class="req" aria-hidden="true">*</span>' : '') + (choice ? '</span>' : '</label>') + (f.h ? `<span class="hint">${esc(f.h)}</span>` : '');
+  let inp;
+  if(f.t === 'area') inp = `<textarea id="${id}" data-k="${f.k}">${esc(v)}</textarea>`;
+  else if(choice){
+    const cur = multi ? (Array.isArray(v) ? v : []) : v;
+    inp = `<div class="opts" role="${multi ? 'group' : 'radiogroup'}" aria-labelledby="${id}">` + f.o.map(o => { const on = multi ? cur.includes(o) : cur === o;
+      return `<label class="opt${on ? ' on' : ''}"><input type="${multi ? 'checkbox' : 'radio'}" name="${f.k}" value="${esc(o)}" data-k="${f.k}" ${on ? 'checked' : ''}><span>${esc(o)}</span></label>`; }).join('') + '</div>';
+  } else inp = `<input type="${f.t === 'tel' ? 'tel' : f.t === 'mail' ? 'email' : 'text'}" id="${id}" data-k="${f.k}" value="${esc(v)}"${f.t === 'mail' ? ' autocomplete="email"' : f.t === 'tel' ? ' autocomplete="tel"' : ''}>`;
+  return `<div class="f${vis(f) ? '' : ' hidden'}" data-fk="${f.k}">${lab}${inp}<div class="emsg">${U.required}</div></div>`;
+}
+
+function section(s){
+  chrome(step + 1, SECTIONS.length + 1); nav.classList.remove('hidden');
+  view.innerHTML = `<div class="card"><h2>${esc(s.t)}</h2>${s.d ? `<p class="sub">${esc(s.d)}</p>` : '<div style="height:14px"></div>'}${s.f.map(field).join('')}</div>`;
+  $('#next').textContent = step === SECTIONS.length - 1 ? U.review : U.next;
+  $('#back').textContent = U.back;
+  view.querySelectorAll('input,textarea').forEach(el => {
+    el.addEventListener(el.type === 'radio' || el.type === 'checkbox' ? 'change' : 'input', () => {
+      const k = el.dataset.k, box = [...view.querySelectorAll('input[data-k="' + k + '"]')];
+      if(el.type === 'checkbox') data[k] = box.filter(b => b.checked).map(b => b.value);
+      else data[k] = el.value;
+      if(el.type === 'checkbox' || el.type === 'radio') box.forEach(b => b.closest('.opt').classList.toggle('on', b.checked));
+      const w = el.closest('.f'); if(w) w.classList.remove('bad');
+      s.f.forEach(f => { if(f.if && f.if.k === k){ const w2 = view.querySelector('.f[data-fk="' + f.k + '"]'); if(w2) w2.classList.toggle('hidden', !vis(f)); } });
+      save();
+    });
+  });
+}
+
+function validate(){
+  let first = null;
+  SECTIONS[step].f.forEach(f => { const w = view.querySelector('.f[data-fk="' + f.k + '"]'); if(!w) return;
+    if(f.req && vis(f) && !filled(f.k)){ w.classList.add('bad'); if(!first) first = w; } else w.classList.remove('bad'); });
+  if(first){ first.scrollIntoView({behavior: 'smooth', block: 'center'}); return false; }
+  return true;
+}
+
+function summaryText(){
+  const L = [NASLOV.toUpperCase(), PODNASLOV, 'Norma Studio d.o.o.', U.when + ' ' + new Date().toLocaleString(document.documentElement.lang === 'hr' ? 'hr-HR' : 'en-GB'), ''];
+  SECTIONS.forEach((s, i) => { L.push('', '='.repeat(58), (i + 1) + '. ' + s.t.toUpperCase(), '='.repeat(58));
+    s.f.filter(vis).forEach(f => { let v = data[f.k]; if(Array.isArray(v)) v = v.join(', '); v = v == null || String(v).trim() === '' ? '—' : String(v).trim(); L.push('', f.l, '   ' + v.replace(/\n/g, '\n   ')); }); });
+  return L.join('\n');
+}
+
+function download(){
+  const b = new Blob([summaryText()], {type: 'text/plain;charset=utf-8'}), a = document.createElement('a');
+  a.href = URL.createObjectURL(b); a.download = U.file + '-' + (String(data.ime || '').replace(/[^\wČĆŽŠĐčćžšđ -]/g, '').trim().replace(/\s+/g, '-') || 'kopija') + '.txt';
+  document.body.appendChild(a); a.click(); a.remove();
+}
+
+function review(){
+  chrome(SECTIONS.length + 1, SECTIONS.length + 1); nav.classList.add('hidden');
+  let tot = 0, ans = 0; SECTIONS.forEach(s => s.f.filter(vis).forEach(f => { tot++; if(filled(f.k)) ans++; }));
+  let h = `<div class="card"><h2>${U.review}</h2><p class="sub">${U.answered.replace('%1', ans).replace('%2', tot)}</p><div class="rv">`;
+  SECTIONS.forEach((s, i) => { h += `<h3>${i + 1}. ${esc(s.t)}</h3>`;
+    s.f.filter(vis).forEach(f => { let v = data[f.k]; if(Array.isArray(v)) v = v.join(', '); const e = v == null || String(v).trim() === '';
+      h += `<div class="rvi"><b>${esc(f.l)}</b><span class="${e ? 'no' : ''}">${e ? '—' : esc(v)}</span></div>`; }); });
+  h += `</div><div class="chk"><input type="checkbox" id="cons"><label for="cons">${U.consent}</label></div>
+    <input type="checkbox" id="botcheck" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;opacity:0" aria-hidden="true">
+    <div id="serr" class="note err hidden" role="alert"></div>
+    <div class="redak"><button class="pri" id="send">${U.send}</button><button class="sec" id="dl">${U.dl}</button><button class="sec" id="bk">${U.backq}</button></div></div>`;
+  view.innerHTML = h;
+  $('#bk').onclick = () => { step = SECTIONS.length - 1; render(); };
+  $('#dl').onclick = download;
+  $('#send').onclick = () => submit($('#send'));
+}
+
+async function submit(btn){
+  const err = $('#serr'), show = m => { err.textContent = m; err.classList.remove('hidden'); err.scrollIntoView({behavior: 'smooth', block: 'center'}); };
+  err.classList.add('hidden');
+  if($('#botcheck').checked) return;
+  if(!$('#cons').checked) return show(U.needconsent);
+  for(let i = 0; i < SECTIONS.length; i++) for(const f of SECTIONS[i].f) if(f.req && vis(f) && !filled(f.k)){
+    step = i; render(); const w = view.querySelector('.f[data-fk="' + f.k + '"]'); if(w){ w.classList.add('bad'); w.scrollIntoView({behavior: 'smooth', block: 'center'}); } return; }
+  btn.disabled = true; btn.textContent = U.sending;
+  try{
+    const r = await fetch('https://api.web3forms.com/submit', {method: 'POST', headers: {'Content-Type': 'application/json', Accept: 'application/json'},
+      body: JSON.stringify({access_key: ACCESS_KEY, subject: NASLOV + ' — ' + (data.ime || '?'), from_name: 'Norma Studio — ' + NASLOV,
+        name: data.ime || '', email: data.mail || '', replyto: data.mail || '', telefon: data.tel || '', message: summaryText()})});
+    const j = await r.json().catch(() => ({}));
+    if(!r.ok || j.success === false) throw new Error(j.message || ('HTTP ' + r.status));
+    step = SECTIONS.length + 1; render();
+  }catch(e){ btn.disabled = false; btn.textContent = U.send; show(U.failed.replace('%1', SEND_TO)); }
+}
+
+function done(){
+  chrome(SECTIONS.length + 1, SECTIONS.length + 1); nav.classList.add('hidden');
+  view.innerHTML = `<div class="card" style="padding:40px 24px"><h2>${U.sent}</h2><p class="sub" style="margin-top:10px">${U.sent2}</p>
+    <p style="font-size:15px;color:var(--siva)">${U.sent3.replace('%1', '<b>' + esc(SEND_TO) + '</b>')}</p>
+    <div class="redak"><button class="sec" id="dl2">${U.dl}</button></div></div>`;
+  $('#dl2').onclick = download;
+  try{ localStorage.removeItem(KEY); }catch(e){}
+}
+
+$('#next').onclick = () => { if(!validate()) return; step++; render(); };
+$('#back').onclick = () => { step--; render(); };
+render();
+</script>
+</body>
+</html>

@@ -63,6 +63,17 @@ button{font:500 15px var(--font);padding:12px 22px;cursor:pointer;border:1px sol
 .chk input{margin:3px 0 0;accent-color:var(--tinta)}
 .err{border-left-color:var(--err);background:#fbefee;color:var(--err)}
 .redak{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.dod{background:none;border:0;padding:6px 0 0;font-size:13.5px;color:var(--luk);text-decoration:underline;text-underline-offset:3px}
+.dod:hover{color:var(--tinta)}
+textarea.nap{min-height:64px;margin-top:8px;font-size:15px;background:var(--papir)}
+.mid{display:flex;align-items:center;gap:12px}
+.kasnije{background:none;border:0;padding:6px 2px;font-size:13.5px;color:var(--siva);text-decoration:underline;text-underline-offset:3px}
+.kasnije:hover{color:var(--tinta)}
+.sheet{position:fixed;inset:0;background:rgba(20,21,28,.45);z-index:40;display:flex;align-items:flex-end;justify-content:center}
+.sheet .card{max-width:620px;width:100%;margin:0 0 0;border:0}
+.sheet input{font-size:13px!important;color:var(--siva)!important}
+.rvi .nn{display:block;color:var(--luk);font-size:13.5px;margin-top:3px}
+@media(min-width:700px){.sheet{align-items:center}}
 footer{padding:18px 0 26px;color:var(--siva);font-size:13px}
 @media(max-width:560px){.rvi{grid-template-columns:1fr;gap:2px}.card{padding:18px}.desno .korak{display:none}}
 </style>
@@ -77,7 +88,7 @@ footer{padding:18px 0 26px;color:var(--siva);font-size:13px}
 </header>
 <main class="wrap"><div id="view"></div></main>
 <div class="nav hidden" id="nav"><div class="wrap navin">
- <button class="sec" id="back"></button><span class="saved" id="saved" aria-live="polite"></span><button class="pri" id="next"></button>
+ <button class="sec" id="back"></button><span class="mid"><button class="kasnije" id="later" type="button"></button><span class="saved" id="saved" aria-live="polite"></span></span><button class="pri" id="next"></button>
 </div></div>
 <footer class="wrap">Norma Studio d.o.o., Kralja Petra Krešimira IV, Lamela 5, Mostar, +387 63 360 903</footer>
 <script>
@@ -85,7 +96,7 @@ footer{padding:18px 0 26px;color:var(--siva);font-size:13px}
 const ACCESS_KEY = "ea00d9db-1da0-4b4d-9f1c-f055ccf46ee9";
 const SEND_TO = "jerko@normaarch.com";
 const KEY = "norma_upitnik_interijer_v1_en";
-const U = {"step": "Step %1 of %2", "saved": "Saved on this device", "next": "Next", "back": "Back", "review": "Review answers", "start": "Start", "cont": "Continue where you left off", "reset": "Start over", "reset2": "Delete all answers? Click once more", "required": "This field is required.", "answered": "%1 of %2 questions answered. Check and send.", "consent": "I confirm the information is correct. If anything changes, I will let you know in writing.", "needconsent": "Tick the box below the review, then send.", "send": "Send questionnaire", "sending": "Sending…", "dl": "Download a copy", "backq": "Back to questions", "when": "Filled in:", "file": "Questionnaire", "failed": "Sending failed. Click “Download a copy” and email the file to %1, or call us.", "sent": "Questionnaire sent", "sent2": "Thank you. We will review your answers and get back to you with a quote.", "sent3": "If you have documents, drawings, photos or images you like, send them to %1.", "intro1": "Based on your answers we prepare a quote with price and timeline. There is no obligation.", "intro2": "It takes about 10 minutes. Most questions are a single click. Where you are unsure, skip it or choose “Your suggestion”. Answers are saved on this device, so you can stop and continue later."};
+const U = {"step": "Step %1 of %2", "saved": "Saved on this device", "next": "Next", "back": "Back", "review": "Review answers", "start": "Start", "cont": "Continue where you left off", "reset": "Start over", "reset2": "Delete all answers? Click once more", "required": "This field is required.", "answered": "%1 of %2 questions answered. Check and send.", "consent": "I confirm the information is correct. If anything changes, I will let you know in writing.", "needconsent": "Tick the box below the review, then send.", "send": "Send questionnaire", "sending": "Sending…", "dl": "Download a copy", "backq": "Back to questions", "when": "Filled in:", "file": "Questionnaire", "failed": "Sending failed. Click “Download a copy” and email the file to %1, or call us.", "sent": "Questionnaire sent", "sent2": "Thank you. We will review your answers and get back to you with a quote.", "sent3": "If you have documents, drawings, photos or images you like, send them to %1.", "intro1": "Based on your answers we prepare a quote with price and timeline. There is no obligation.", "intro2": "It takes about 10 minutes. Most questions are a single click, and you can add a note to any of them. Where you are unsure, skip it or choose “Your suggestion”. Answers are saved on this device, so you can stop and continue later; “Save for later” gives you a link to continue on another device.", "later": "Save for later", "laterT": "Your answers are saved on this device until you send the questionnaire. To continue on another device, or if the browser is cleared, keep this link:", "copy": "Copy link", "copied": "Copied", "mailme": "Email it to yourself", "mailsub": "Norma Studio – continue questionnaire", "close": "Close", "addnote": "+ Note", "notepl": "Note on this question", "notelabel": "Note", "loaded": "Your saved answers are loaded. Continue where you left off."};
 const SECTIONS = [
 {
 "t": "Your details",
@@ -528,6 +539,13 @@ const view = $('#view'), nav = $('#nav');
 const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function stored(){ try{ return localStorage.getItem(KEY); }catch(e){ return null; } }
 try{ data = JSON.parse(stored() || '{}') || {}; }catch(e){ data = {}; }
+let iz_poveznice = false;
+if(location.hash.startsWith('#n=')){
+  try{ const d = JSON.parse(decodeURIComponent(escape(atob(decodeURIComponent(location.hash.slice(3)))))); if(d && typeof d === 'object'){ data = Object.assign({}, data, d); iz_poveznice = true; } }catch(e){}
+  history.replaceState(null, '', location.pathname);
+}
+function korak(){ const k = Number(data.__korak); return Number.isInteger(k) && k >= 0 && k < SECTIONS.length ? k : 0; }
+if(iz_poveznice) try{ localStorage.setItem(KEY, JSON.stringify(data)); }catch(e){}
 function save(){ try{ localStorage.setItem(KEY, JSON.stringify(data)); $('#saved').textContent = U.saved; setTimeout(() => { $('#saved').textContent = ''; }, 1800); }catch(e){} }
 function vis(f){ if(!f.if) return true; const v = data[f.if.k]; return Array.isArray(v) ? v.some(x => f.if.in.includes(x)) : f.if.in.includes(v); }
 function filled(k){ const v = data[k]; return Array.isArray(v) ? v.length > 0 : v != null && String(v).trim() !== ''; }
@@ -538,9 +556,9 @@ function intro(){
   chrome(0, SECTIONS.length + 1); nav.classList.add('hidden');
   const any = !!stored();
   view.innerHTML = `<div class="card"><h1>${esc(NASLOV)}</h1><p class="sub">${esc(PODNASLOV)}</p>
-    <p>${U.intro1}</p><div class="note" style="margin-top:16px">${U.intro2}</div>
+    ${iz_poveznice ? `<div class="note">${esc(U.loaded)}</div>` : ''}<p>${U.intro1}</p><div class="note" style="margin-top:16px">${U.intro2}</div>
     <div class="redak"><button class="pri" id="go">${any ? U.cont : U.start}</button>${any ? `<button class="sec" id="reset">${U.reset}</button>` : ''}</div></div>`;
-  $('#go').onclick = () => { step = 0; render(); };
+  $('#go').onclick = () => { step = any ? korak() : 0; render(); };
   const r = $('#reset');
   if(r) r.onclick = () => { if(!r.dataset.sure){ r.dataset.sure = 1; r.textContent = U.reset2; return; } data = {}; try{ localStorage.removeItem(KEY); }catch(e){} step = 0; render(); };
 }
@@ -556,7 +574,10 @@ function field(f){
     inp = `<div class="opts" role="${multi ? 'group' : 'radiogroup'}" aria-labelledby="${id}">` + f.o.map(o => { const on = multi ? cur.includes(o) : cur === o;
       return `<label class="opt${on ? ' on' : ''}"><input type="${multi ? 'checkbox' : 'radio'}" name="${f.k}" value="${esc(o)}" data-k="${f.k}" ${on ? 'checked' : ''}><span>${esc(o)}</span></label>`; }).join('') + '</div>';
   } else inp = `<input type="${f.t === 'tel' ? 'tel' : f.t === 'mail' ? 'email' : 'text'}" id="${id}" data-k="${f.k}" value="${esc(v)}"${f.t === 'mail' ? ' autocomplete="email"' : f.t === 'tel' ? ' autocomplete="tel"' : ''}>`;
-  return `<div class="f${vis(f) ? '' : ' hidden'}" data-fk="${f.k}">${lab}${inp}<div class="emsg">${U.required}</div></div>`;
+  const bezNap = f.t === 'area' || ['ime', 'tel', 'mail', 'komun'].includes(f.k), n = data[f.k + '__n'];
+  const nap = bezNap ? '' : (n ? '' : `<button type="button" class="dod" data-dod="${f.k}">${esc(U.addnote)}</button>`)
+    + `<textarea class="nap${n ? '' : ' hidden'}" data-k="${f.k}__n" aria-label="${esc(U.notepl)}: ${esc(f.l)}" placeholder="${esc(U.notepl)}">${esc(n)}</textarea>`;
+  return `<div class="f${vis(f) ? '' : ' hidden'}" data-fk="${f.k}">${lab}${inp}${nap}<div class="emsg">${U.required}</div></div>`;
 }
 
 function section(s){
@@ -564,6 +585,8 @@ function section(s){
   view.innerHTML = `<div class="card"><h2>${esc(s.t)}</h2>${s.d ? `<p class="sub">${esc(s.d)}</p>` : '<div style="height:14px"></div>'}${s.f.map(field).join('')}</div>`;
   $('#next').textContent = step === SECTIONS.length - 1 ? U.review : U.next;
   $('#back').textContent = U.back;
+  if(data.__korak !== step){ data.__korak = step; save(); }
+  view.querySelectorAll('[data-dod]').forEach(b => b.onclick = () => { const t = b.parentNode.querySelector('textarea.nap'); t.classList.remove('hidden'); t.focus(); b.remove(); });
   view.querySelectorAll('input,textarea').forEach(el => {
     el.addEventListener(el.type === 'radio' || el.type === 'checkbox' ? 'change' : 'input', () => {
       const k = el.dataset.k, box = [...view.querySelectorAll('input[data-k="' + k + '"]')];
@@ -588,7 +611,7 @@ function validate(){
 function summaryText(){
   const L = [NASLOV.toUpperCase(), PODNASLOV, 'Norma Studio d.o.o.', U.when + ' ' + new Date().toLocaleString(document.documentElement.lang === 'hr' ? 'hr-HR' : 'en-GB'), ''];
   SECTIONS.forEach((s, i) => { L.push('', '='.repeat(58), (i + 1) + '. ' + s.t.toUpperCase(), '='.repeat(58));
-    s.f.filter(vis).forEach(f => { let v = data[f.k]; if(Array.isArray(v)) v = v.join(', '); v = v == null || String(v).trim() === '' ? '—' : String(v).trim(); L.push('', f.l, '   ' + v.replace(/\n/g, '\n   ')); }); });
+    s.f.filter(vis).forEach(f => { let v = data[f.k]; if(Array.isArray(v)) v = v.join(', '); v = v == null || String(v).trim() === '' ? '—' : String(v).trim(); L.push('', f.l, '   ' + v.replace(/\n/g, '\n   ')); const n = String(data[f.k + '__n'] || '').trim(); if(n) L.push('   ' + U.notelabel + ': ' + n.replace(/\n/g, '\n   ')); }); });
   return L.join('\n');
 }
 
@@ -604,7 +627,8 @@ function review(){
   let h = `<div class="card"><h2>${U.review}</h2><p class="sub">${U.answered.replace('%1', ans).replace('%2', tot)}</p><div class="rv">`;
   SECTIONS.forEach((s, i) => { h += `<h3>${i + 1}. ${esc(s.t)}</h3>`;
     s.f.filter(vis).forEach(f => { let v = data[f.k]; if(Array.isArray(v)) v = v.join(', '); const e = v == null || String(v).trim() === '';
-      h += `<div class="rvi"><b>${esc(f.l)}</b><span class="${e ? 'no' : ''}">${e ? '—' : esc(v)}</span></div>`; }); });
+      const n = String(data[f.k + '__n'] || '').trim();
+      h += `<div class="rvi"><b>${esc(f.l)}</b><span><span class="${e ? 'no' : ''}">${e ? '—' : esc(v)}</span>${n ? `<span class="nn">${esc(U.notelabel)}: ${esc(n)}</span>` : ''}</span></div>`; }); });
   h += `</div><div class="chk"><input type="checkbox" id="cons"><label for="cons">${U.consent}</label></div>
     <input type="checkbox" id="botcheck" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;opacity:0" aria-hidden="true">
     <div id="serr" class="note err hidden" role="alert"></div>
@@ -642,6 +666,22 @@ function done(){
   try{ localStorage.removeItem(KEY); }catch(e){}
 }
 
+$('#later').textContent = U.later;
+$('#later').onclick = () => {
+  save();
+  const link = location.origin + location.pathname + '#n=' + encodeURIComponent(btoa(unescape(encodeURIComponent(JSON.stringify(data)))));
+  const sh = document.createElement('div'); sh.className = 'sheet';
+  sh.innerHTML = `<div class="card" role="dialog" aria-modal="true" aria-labelledby="lt"><h2 id="lt">${esc(U.later)}</h2><p class="sub" style="margin-top:8px">${esc(U.laterT)}</p>
+    <input type="text" readonly value="${esc(link)}" id="lk"><div class="redak"><button class="pri" id="cp">${esc(U.copy)}</button>
+    <a class="sec" style="padding:12px 22px;border:1px solid var(--crta);text-decoration:none;color:var(--tinta);font-weight:500;font-size:15px" href="mailto:${encodeURIComponent(data.mail || '')}?subject=${encodeURIComponent(U.mailsub)}&body=${encodeURIComponent(link)}">${esc(U.mailme)}</a>
+    <button class="sec" id="cl">${esc(U.close)}</button></div></div>`;
+  document.body.appendChild(sh);
+  const zatvori = () => sh.remove();
+  sh.onclick = e => { if(e.target === sh) zatvori(); };
+  $('#cl').onclick = zatvori;
+  $('#cp').onclick = async () => { try{ await navigator.clipboard.writeText(link); }catch(e){ $('#lk').select(); document.execCommand('copy'); } $('#cp').textContent = U.copied; };
+  document.addEventListener('keydown', function k(e){ if(e.key === 'Escape'){ zatvori(); document.removeEventListener('keydown', k); } });
+};
 $('#next').onclick = () => { if(!validate()) return; step++; render(); };
 $('#back').onclick = () => { step--; render(); };
 render();

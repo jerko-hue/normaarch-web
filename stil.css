@@ -76,6 +76,10 @@ p{margin:0}
 .rad{text-decoration:none;display:block}
 .rad figure{margin:0 0 14px;overflow:hidden;background:var(--kamen)}
 .rad img{width:100%;aspect-ratio:3/2;object-fit:cover;transition:transform .8s cubic-bezier(.2,.6,.2,1)}
+/* projekti crno-bijeli dok ne dođu u pogled, onda dobiju boju (Jerko 19.11.); bez JS-a ostaju u boji */
+.cb .rad img{filter:grayscale(1) contrast(1.04);transition:filter 1.4s ease .1s,transform .8s cubic-bezier(.2,.6,.2,1)}
+.cb .rad.boja img,.cb .rad:hover img,.cb .rad:focus-visible img{filter:none}
+@media(prefers-reduced-motion:reduce){.cb .rad img{transition:filter .3s ease}}
 .rad:hover img{transform:scale(1.025)}
 .rad-n{display:block;font-size:20px;font-weight:500;font-stretch:108%;line-height:1.2}
 .rad:hover .rad-n{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
@@ -99,6 +103,31 @@ p{margin:0}
 .radovi-mreza:not(.jednako) .rad:nth-child(8n+8){grid-column:3/11}
 .jednako .rad{grid-column:span 6}
 .jednako .rad[hidden]{display:none}
+/* popis projekata razbacan kao časopis (Jerko 19.11.: „preformalno“). Samo stranica Projekti (.razbacano), naslovna netaknuta.
+   Ritam od 8 mjesta (data-p) – gradi.py ih upiše, web.js ih iznova podijeli vidljivima nakon filtra. */
+.razbacano{row-gap:clamp(64px,8vw,150px);align-items:start}
+.razbacano .rad[data-p="0"]{grid-column:1/8}
+.razbacano .rad[data-p="1"]{grid-column:9/13;margin-top:clamp(80px,12vw,220px)}
+.razbacano .rad[data-p="2"]{grid-column:2/6}
+.razbacano .rad[data-p="3"]{grid-column:7/13;margin-top:clamp(48px,7vw,130px)}
+.razbacano .rad[data-p="4"]{grid-column:2/12}
+.razbacano .rad[data-p="5"]{grid-column:1/6}
+.razbacano .rad[data-p="6"]{grid-column:7/12;margin-top:clamp(120px,17vw,300px)}
+.razbacano .rad[data-p="7"]{grid-column:5/9}
+.razbacano .rad[data-p="1"] img,.razbacano .rad[data-p="5"] img,.razbacano .rad[data-p="7"] img{aspect-ratio:4/5}
+.razbacano .rad[data-p="2"] img{aspect-ratio:1}
+.razbacano .rad[data-p="3"] img{aspect-ratio:16/10}
+.razbacano .rad[data-p="4"] img{aspect-ratio:2/1}
+.razbacano .rad[data-p=h]{grid-column:1/-1;margin:0 calc(-1*var(--rub))}
+.razbacano .rad[data-p=h] img{aspect-ratio:16/7;object-position:center 22%}
+.razbacano .rad[data-p=h] .rad-n,.razbacano .rad[data-p=h] .rad-m{padding:0 var(--rub)}
+.razbacano .rad[data-p=h] .rad-n{font-size:clamp(24px,2.6vw,38px)}
+/* ulaz: slika se tiho podigne, natpis za njom; pomak u dubini (paralaksa) radi web.js na samoj kartici */
+.ziv .razbacano .rad figure,.ziv .razbacano .rad>span{opacity:0;transform:translateY(32px);transition:opacity .9s ease,transform 1.3s cubic-bezier(.2,.6,.2,1)}
+.ziv .razbacano .rad .rad-n{transition-delay:.15s}
+.ziv .razbacano .rad .rad-m{transition-delay:.25s}
+.ziv .razbacano .rad.vidljiv figure,.ziv .razbacano .rad.vidljiv>span,
+.ziv .razbacano .rad:focus-visible figure,.ziv .razbacano .rad:focus-visible>span{opacity:1;transform:none}
 
 /* ---------------- uvod podstranica ---------------- */
 .uvod{padding:clamp(48px,8vw,120px) var(--rub) clamp(32px,4vw,56px);display:grid;grid-template-columns:repeat(12,1fr);gap:20px 2vw;align-items:end}
@@ -211,6 +240,13 @@ p{margin:0}
   .radovi-mreza:not(.jednako) .rad{grid-column:1/-1!important}
   .radovi-mreza .rad img,.radovi-mreza .rad:first-child img{aspect-ratio:4/3!important}
   .jednako .rad{grid-column:1/-1}
+  .razbacano{row-gap:56px}
+  .razbacano .rad[data-p]{grid-column:1/-1;margin-top:0}
+  .razbacano .rad[data-p="1"],.razbacano .rad[data-p="5"]{grid-column:4/-1}
+  .razbacano .rad[data-p="2"],.razbacano .rad[data-p="7"]{grid-column:1/10}
+  .razbacano .rad[data-p="1"] img,.razbacano .rad[data-p="5"] img,.razbacano .rad[data-p="7"] img{aspect-ratio:4/5!important}
+  .razbacano .rad[data-p="2"] img{aspect-ratio:1!important}
+  .razbacano .rad[data-p=h]{margin:0 calc(-1*var(--rub))}
   .upit-v,.upit-v:first-of-type{grid-column:1/-1}
   .upit-v .znak{padding-bottom:18px}
   .usluge{grid-template-columns:1fr}
